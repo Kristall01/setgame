@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="UTF-8">
+	<title>Set</title>
+	
+	<link rel="stylesheet" href="/main.css">
+	<link rel="stylesheet" href="/game/view/game.css">
+	<link rel="stylesheet" href="/menu/menu.css">
+	<link rel="stylesheet" href="/game/view/newcard.css">
+	<link rel="stylesheet" href="/menu/toggleswitch.css">
+	<link rel="stylesheet" href="/chatfont.css">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/fb093ad5a1.js" crossorigin="anonymous"></script>
+	<script type="module" src="/menu/Menu.js"></script>
+</head>
+<body>
+	<svg width="0" height="0" style="display: block;">
+		<pattern id="striped-red" patternUnits="userSpaceOnUse" width="4" height="4">
+			<path d="M-1,1 H5" style="stroke:#e74c3c; stroke-width:1"></path>
+		</pattern>
+		<pattern id="striped-green" patternUnits="userSpaceOnUse" width="4" height="4">
+			<path d="M-1,1 H5" style="stroke:#27ae60; stroke-width:1"></path>
+		</pattern>
+		<pattern id="striped-purple" patternUnits="userSpaceOnUse" width="4" height="4">
+			<path d="M-1,1 H5" style="stroke:#8e44ad; stroke-width:1"></path>
+		</pattern>
+	</svg>
+	<div id="container">
+		<div id="menu">
+			<div class="menu" id="menu-online" data-menulink="online">
+				<div class="title">online játék</div>
+				<form id="start-game-online">
+					<div class="section">
+						<div>felhasználónév: </div>
+						<div class="inputentry">
+							<input name="username" type="text" />
+						</div>
+					</div>
+					<div class="section">
+						<div>szerver címe: </div>
+						<div class="inputentry">
+							<input id="server-address-input" name="address" type="text" autocomplete="off" />
+						</div>
+					</div>
+					<input type="submit" class="button section" value="csatlakozás" />
+				</form>
+				<div class="button menulink section" data-menulink="menu-main">vissza</div>
+			</div>
+			<div class="menu" id="menu-main">
+				<div class="title">Set v1.1</div>
+				<a target="_blank" href="https://fejlesztojatekvilag.hu/uploaded/set_magyar_szabaly.pdf">
+					<div class="button section">szabályzat megtekintése</div>
+				</a>
+				<div class="button menulink section" data-menulink="menu-play">Helyi játék indítása</div>
+				
+				<div id="start-game-online" data-menulink="menu-online" class="button section menulink">Online játék indítása</div>
+				<div class="button menulink section" data-menulink="menu-scores">Pontszámok</div>
+				<div class="footer section">Készítette Dudás Dominik (2020. november)</div>
+			</div>
+			<div class="menu" id="menu-play">
+				<div class="title">Helyi játék indítása</div>
+				<div class="button menulink section" data-menulink="menu-players">játékosok beállítása</div>
+				<div class="toggleswitch">
+					<input type="radio" name="gamemode" value="0" id="switch-practise" checked>
+					<label for="switch-practise">gyakorlás</label>
+					<input type="radio" name="gamemode" value="1" id="switch-race">
+					<label for="switch-race">verseny</label>
+				</div>
+				<div class="button menulink section" data-menulink="menu-settings">egyéb beállítások</div>
+				<div class="toggleswitch">
+					<input type="radio" name="difficulty" value="0" id="switch-beginner">
+					<label for="switch-beginner">kezdő</label>
+					<input type="radio" name="difficulty" value="1" id="switch-expert" checked>
+					<label for="switch-expert">haladó</label>
+				</div>
+				<div id="start-game" class="button section">start</div>
+				<div class="button menulink section" data-menulink="menu-main">vissza</div>
+			</div>
+			<div class="menu" id="menu-settings">
+				<div class="title">Egyéb beállítások</div>
+				<div class="toggler section">
+					<div>set mutatás</div>
+					<div class="toggleswitch">
+						<input type="radio" name="showset" value="1" id="switch-showset-on" checked>
+						<label for="switch-showset-on">be</label>
+						<input type="radio" name="showset" value="0" id="switch-showset-off">
+						<label for="switch-showset-off">ki</label>
+					</div>
+				</div>
+				<div class="toggler section">
+					<div>set keresés</div>
+					<div class="toggleswitch">
+						<input type="radio" name="searchset" value="1" id="switch-searchset-on" checked>
+						<label for="switch-searchset-on">be</label>
+						<input type="radio" name="searchset" value="0" id="switch-searchset-off">
+						<label for="switch-searchset-off">ki</label>
+					</div>
+				</div>
+				<div class="toggler section">
+					<div>kártyahúzás</div>
+					<div class="toggleswitch">
+						<input type="radio" name="pullcard" value="1" id="switch-pullcard-on" checked>
+						<label for="switch-pullcard-on">be</label>
+						<input type="radio" name="pullcard" value="0" id="switch-pullcard-off">
+						<label for="switch-pullcard-off">ki</label>
+					</div>
+				</div>
+				<div class="button menulink section" data-menulink="menu-play">vissza</div>
+			</div>
+			<div class="menu" id="menu-players">
+				<div class="title">Játékosok beállítása</div>
+				<div class="section" id="playerinput-list">
+					<div class="inputentry">
+						<input type="text" placeholder="játékos neve" value="player1">
+					</div>
+				</div>
+				<div id="playeradd-btn" class="button section">játékos hozzáadás</div>
+				<div class="button menulink section" data-menulink="menu-play">vissza</div>
+			</div>
+			<div class="menu" id="menu-scores">
+				<div class="title">Pontszámok</div>
+				<div class="button menulink section" data-menulink="menu-scores-3">3-as toplista</div>
+				<div class="button menulink section" data-menulink="menu-scores-4">4-es toplista</div>
+				<div class="button menulink section" data-menulink="menu-scores-multi">többjátékos eredmények</div>
+				<div class="button menulink section" data-menulink="menu-main">Vissza</div>
+			</div>
+			<div class="menu" id="menu-scores-3">
+				<div class="title">3-as toplista</div>
+				<div class="fixedtable">
+					<table cellspacing="0" class="section">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>játékos</th>
+								<th>idő</th>
+							</tr>
+						</thead>
+						<tbody id="table-scores-single3"></tbody>
+					</table>
+				</div>
+				<div class="button menulink section" data-menulink="menu-scores">Vissza</div>
+			</div>
+			<div class="menu" id="menu-scores-4">
+				<div class="title">4-es toplista</div>
+				<div class="fixedtable">
+					<table class="section" cellspacing="0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>játékos</th>
+								<th>idő</th>
+							</tr>
+						</thead>
+						<tbody id="table-scores-single4"></tbody>
+					</table>
+				</div>
+				<div class="button menulink section" data-menulink="menu-scores">Vissza</div>
+			</div>
+			<div class="menu" id="menu-scores-multi">
+				<div class="title">többjátékos eredmények</div>
+				<div class="fixedtable" id="table-scores-multi"></div>
+				<div class="button menulink section" data-menulink="menu-scores">Vissza</div>
+			</div>
+		</div>
+		<div id="game" class="dnone">
+			<div id="adminside">
+				<div id="pakliparent" style="width: 100%; height: 150px;">
+					<div class="card">
+					</div>
+				</div>
+				<div id="buttons">
+					<div id="btn-anyset" class="button">Van-e SET?</div>
+					<div id="btn-showset" class="button">Hol van SET?</div>
+					<div id="btn-pullcard" class="button">Plusz 3 lap</div>
+					<div id="btn-resetgame" class="hideable button disabled dnone">Játék újraindítása</div>
+				</div>
+				<div id="players"></div>
+				<div id="chat-window" class="dnone hideable">
+					<div id="chat-log"></div>
+					<div class="inputsection">
+						<form id="chat-form">
+							<div class="box">
+								<input autocomplete="off" name="text" placeholder="üzenet küldése" type="text" />
+							</div>
+							<input type="submit" class="button" value="chat">
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="gameside">
+				<div id="gametable">
+				</div>
+			</div>
+			<div id="messagelist"></div>
+			<div id="gameoverfilter" class="hidden">
+				<div id="gameovermenu">
+					<div class="title">Game over!</div>
+					<div>
+						<span>idő:</span>
+						<span class="time">--:--</span>
+					</div>
+					<div id="restartgamebtn" class="button">új játék kezdése</div>
+					<div id="menuopener" class="button">vissza a menübe</div>
+					<table class="fixedtable" id="finalscoretable" cellspacing="0">
+						<thead>
+							<tr>
+								<th>játékos</th>
+								<th>eddigi pontszám</th>
+								<th>utolsó pontszám</th>
+							</tr>
+						</thead>
+						<tbody id="finalscores"></tbody>
+					</table>
+				</div>
+			</div>
+			<div id="modal-layer" class="dnone">
+				<div class="modal-box">
+					<div id="modal-text"></div>
+					<!--
+						<div id="button-level">
+							<div class="button" id="modal-close">OK</div>
+						</div>
+					-->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
