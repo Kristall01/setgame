@@ -15,12 +15,18 @@ export default class OnlineModel extends EventTarget {
 		super();
 
 		if(address.startsWith("http://")) {
-			address = address.substr(7);
+			address = "ws://"+address.substr(7);
 		}
-		else if(address.startsWith("https://"))
-			address = address.substr(7);
-		else if(!address.startsWith("ws://")) {
-			address = "ws://" + address;
+		else if(address.startsWith("https://")) {
+			address = "wss://"+address.substr(7);
+		}
+		if(!address.startsWith("ws://") && !address.startsWith("wss://")) {
+			if(location.protocol === "https:") {
+				address = "wss://" + address;
+			}
+			else {
+				address = "ws://" + address;
+			}
 		}
 
 		collector.registerFunctions(this);
