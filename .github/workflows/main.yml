@@ -23,18 +23,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2.3.1
+      - name: setup checkout
+        uses: actions/checkout@v2
+      - name: setup java
+        uses: actions/setup-java@v2.3.1
         with:
           java-version: '11'
           distribution: 'adopt'
           java-package: 'jdk'
           cache: 'gradle'
-      - name: Deploy to Heroku
+      - name: build jar
+        run: sudo apt update && sudo apt install -y zip && sh build.sh
+      - name: install heroku
         uses: AkhileshNS/heroku-deploy@v3.12.12
-      - run: sudo apt update && sudo apt install -y zip
-      - run: sh build.sh
-      - run: heroku plugins:install heroku-cli-deploy
-      - run: heroku deploy:jar setserver.jar --jdk 11 --app my-setgame
+      - name: Deploy to Heroku
+        run: heroku plugins:install heroku-cli-deploy && heroku deploy:jar setserver.jar --jdk 11 --app my-setgame
         env:
           HEROKU_API_KEY: ${{HEROKU_API_KEY}}
