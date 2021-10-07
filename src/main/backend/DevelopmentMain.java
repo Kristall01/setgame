@@ -5,7 +5,7 @@ import java.io.File;
 public class DevelopmentMain {
 	
 	public static void main(String[] args) {
-		new GameApplication(new File("src/main/frontend/src"));
+		new GameApplication(new File("src/main/frontend/src"), 8088);
 	}
 	
 }

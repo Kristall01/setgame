@@ -21,42 +21,7 @@ public class GameApplication {
 	private Game game;
 	private HashMap<String, Class<? extends PacketIn>> packetMap = new HashMap<>();
 	
-	/*private Environment findEnvironment(String[] args) {
-		if(args.length != 0) {
-			if(args[0].equals("development")) {
-				return Environment.DEVELOPMENT;
-			}
-			else if(args[0].equals("production")) {
-				return Environment.PRODUCTION;
-			}
-			else {
-				System.out.println("unresolved cli parameter '"+args[0]+'\'');
-			}
-		}
-		File envDescription = new File(".env");
-		if(!envDescription.exists()) {
-			return Environment.NONE;
-		}
-		if(envDescription.canRead()) {
-			byte[] data = null;
-			try {
-				data = Files.readAllBytes(envDescription.toPath());
-			}
-			catch (Exception ex) {
-				System.out.println("failed to read '.env' file");
-				return Environment.NONE;
-			}
-			if(Arrays.equals(data, new byte[] {100, 101, 118, 101, 108, 111, 112, 109, 101, 110, 116})) {
-				return Environment.DEVELOPMENT;
-			}
-			if(Arrays.equals(data, new byte[]{ 112, 114, 111, 100, 117, 99, 116, 105, 111, 110 })) {
-				return Environment.PRODUCTION;
-			}
-		}
-		return Environment.NONE;
-	}*/
-	
-	public GameApplication(File assets) {
+	public GameApplication(File assets, int port) {
 		packetMap.put("cardaction", PakcetInCardAction.class);
 		packetMap.put("magic", PacketInMagic.class);
 		packetMap.put("anyset", PacketInAnyset.class);
@@ -79,7 +44,7 @@ public class GameApplication {
 			wsHandler.onError(this::handleError);
 			wsHandler.onClose(this::handleClose);
 		});
-		app.start(8088);
+		app.start(port);
 	}
 	
 	private void handleConnect(WsConnectContext ctx) {

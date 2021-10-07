@@ -14,7 +14,7 @@ public class ProductionMain {
 			e.printStackTrace();
 			return;
 		}
-		new GameApplication(new File("frontend"));
+		new GameApplication(new File("frontend"), EnvironmentBootstrapper.getPort(80));
 	}
 	
 }

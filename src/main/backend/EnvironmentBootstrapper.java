@@ -19,6 +19,19 @@ public class EnvironmentBootstrapper {
 		}
 	}
 	
+	public static int getPort(int fallback) {
+		String portText = System.getenv("PORT");
+		if(portText == null) {
+			return fallback;
+		}
+		try {
+			return Integer.parseInt(portText);
+		}
+		catch (NumberFormatException ex) {
+			return fallback;
+		}
+	}
+	
 	public static File copyFile(String from, File to) throws IOException {
 		to.getParentFile().mkdirs();
 		if(!to.isFile()) {
