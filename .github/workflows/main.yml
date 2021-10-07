@@ -36,8 +36,10 @@ jobs:
         run: sudo apt update && sudo apt install -y zip && sh build.sh
 #      - name: setup nodejs
 #        uses: actions/setup-node@v2.4.1
+
       - name: install heroku
-        run: sudo snap install --classic heroku
+        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+        
       - name: Deploy to Heroku
         run: heroku plugins:install heroku-cli-deploy && heroku deploy:jar setserver.jar --jdk 11 --app my-setgame
         env:
