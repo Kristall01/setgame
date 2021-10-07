@@ -16,7 +16,7 @@ dependencies {
 }
 
 sourceSets {
-    main.java.srcDirs = ['src/backend']
+    main.java.srcDirs = ['src/main/backend']
 }
 
 jar {
