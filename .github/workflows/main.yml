@@ -39,4 +39,4 @@ jobs:
       - name: Deploy to Heroku
         run: heroku plugins:install heroku-cli-deploy && heroku deploy:jar setserver.jar --jdk 11 --app my-setgame
         env:
-          HEROKU_API_KEY: ${{HEROKU_API_KEY}}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
