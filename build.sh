@@ -1,5 +1,5 @@
 base=$(pwd)
-gradle build
+gradlew build
 cd src/main/frontend/src
 zip -q -r $base/build/frontend.zip *
 cd $base/build
