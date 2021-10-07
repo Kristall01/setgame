@@ -32,10 +32,12 @@ jobs:
           distribution: 'adopt'
           java-package: 'jdk'
           cache: 'gradle'
+      - name: setup nodejs
+        uses: actions/setup-node@v2.4.1
       - name: build jar
         run: sudo apt update && sudo apt install -y zip && sh build.sh
       - name: install heroku
-        uses: AkhileshNS/heroku-deploy@v3.12.12
+        run: sudo npm install -g heroku
       - name: Deploy to Heroku
         run: heroku plugins:install heroku-cli-deploy && heroku deploy:jar setserver.jar --jdk 11 --app my-setgame
         env:
