@@ -32,6 +32,9 @@
 	align-items: center;
 	min-height: 40px;
 	width: 100%;
+}
+
+.menu input[type=submit].section {
 	display: block;
 }
 
